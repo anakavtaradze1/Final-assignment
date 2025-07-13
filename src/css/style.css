@@ -1,0 +1,443 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+img {
+  width: 100%;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.slide-item {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s ease-in-out;
+  z-index: -1;
+}
+.slide-item.active {
+  opacity: 1;
+  z-index: 1;
+  left: 0;
+}
+.slide-item img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.slider-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #212121;
+  z-index: 2;
+}
+.slider-text h2 {
+  font-size: 50px;
+  letter-spacing: 0.75px;
+  line-height: 78px;
+  font-family: "Glacial Indifference regular";
+}
+.slider-text h1 {
+  font-size: 71px;
+  letter-spacing: 1.06px;
+  line-height: 78px;
+  font-family: "Glacial Indifference bold";
+}
+.slider-text p {
+  font-size: 24px;
+  line-height: 64.04px;
+  font-family: "Glacial Indifference regular";
+}
+
+.slider-social-links img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  margin-top: 30px;
+}
+
+.slider-section-title {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 2;
+}
+.slider-section-title .number {
+  font-size: 158px;
+  color: #1c1c1c;
+  opacity: 0.8;
+  position: relative;
+  font-family: "Poppins extrabold";
+}
+.slider-section-title .label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 43px;
+  letter-spacing: 1.3px;
+  line-height: 52px;
+  color: #373737;
+  font-family: "Poppins extrabold";
+}
+.slider-stats {
+  position: absolute;
+  bottom: 50px;
+  right: 60px;
+  z-index: 2;
+}
+.slider-stats p {
+  font-size: 24px;
+  line-height: 32px;
+  color: #212121;
+  font-family: "Montserrat bold";
+}
+.slider-stats span {
+  color: #e93656;
+}
+.slider-stats .progress-line {
+  width: 100%;
+  margin-top: 20px;
+  height: 6px;
+  background-color: #e93656;
+  border-radius: 10px;
+}
+
+.skill p {
+  margin-bottom: 15px;
+  color: #555555;
+  font-size: 20px;
+  font-family: "Glacial Indifference bold";
+}
+.skill span {
+  color: #e93656;
+}
+.progress-bar {
+  background-color: #f0f0f0;
+  height: 9px;
+  max-width: 300px;
+  margin-bottom: 30px;
+}
+.progress {
+  background-color: #e93656;
+  height: 100%;
+  width: 0;
+  transition: width 3s ease-in-out;
+}
+
+.aboutme-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 50px;
+}
+.aboutme-text {
+  text-align: right;
+}
+.aboutme-text h2 {
+  font-size: 40px;
+  color: #222222;
+  margin-bottom: 6px;
+  font-family: "Glacial Indifference bold";
+}
+.aboutme-text h3 {
+  font-size: 14px;
+  color: #daae19;
+  margin-bottom: 33px;
+  font-family: "Muli";
+}
+.aboutme-text p {
+  font-size: 15px;
+  letter-spacing: 0.45px;
+  line-height: 26px;
+  color: #555555;
+  max-width: 334px;
+  margin-bottom: 60px;
+  font-family: "Muli regular";
+}
+.aboutme-text button {
+  background-color: #e93656;
+  border: none;
+  padding: 15px 50px;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: "Glacial Indifference bold";
+}
+.aboutme-section .about-me-pfp img {
+  max-width: 430px;
+  width: 100%;
+  height: 603px;
+  object-fit: cover;
+}
+.aboutme-socials {
+  display: flex;
+}
+.aboutme-socials img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.contact-section {
+  background-color: #131a36;
+}
+.contact-section .container {
+  height: 210px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 100px;
+  gap: 50px;
+}
+.contact-section img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+.number-section,
+.adress-section,
+.email-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.icon-wrapper {
+  width: 90px;
+  height: 90px;
+  border: 2px dashed #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+.icon-color {
+  background-color: #e93656;
+  border-radius: 50%;
+  padding: 30px;
+}
+.adress-section p {
+  width: 200px;
+}
+.contact-section h2 {
+  color: #ffffff;
+  padding-bottom: 15px;
+  font-size: 25px;
+  letter-spacing: 0.75px;
+  line-height: 30px;
+  font-family: "Glacial Indifference bold";
+}
+.contact-section a {
+  color: #dfdfdf;
+  font-size: 14px;
+  letter-spacing: 0.42px;
+  line-height: 24px;
+  font-family: "Muli";
+}
+
+.services-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+  gap: 10px;
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+.service-card {
+  background-color: #fafafa;
+  opacity: 97%;
+  border: 1px solid #e9e9e9;
+  width: 285px;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background-color: #15263e;
+}
+.service-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+.service-card h3 {
+  font-size: 22px;
+  letter-spacing: 0.44px;
+  line-height: 28px;
+  color: #222222;
+  font-family: "Glacial Indifference bold";
+}
+.service-card:hover h3 {
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+.service-card p {
+  color: #ececec;
+  line-height: 26px;
+  letter-spacing: 0.42px;
+  padding: 0px 30px;
+  opacity: 0;
+  font-family: "Muli light";
+  transition: all 0.4s ease;
+}
+.service-card:hover p {
+  opacity: 1;
+}
+
+.slider {
+  padding: 100px;
+  background-image: url("../images/clip.jpg");
+}
+.slider .container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.author-text {
+  flex-basis: 35%;
+  font-size: 15px;
+  line-height: 30px;
+  letter-spacing: 0.45px;
+  color: #ffffff;
+  font-family: "Roboto light";
+  text-align: right;
+}
+.author-section {
+  flex-basis: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+}
+.author-photo-container {
+  padding: 10px;
+  border: 2px dashed #ffffff;
+  border-radius: 50%;
+}
+.author-photo-container img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+}
+.author-info img {
+  height: 26px;
+  width: 39px;
+  object-fit: cover;
+  color: #ffffff;
+  margin-bottom: 25px;
+}
+.author-info .profession {
+  font-size: 13px;
+  letter-spacing: 0.52px;
+  line-height: 30px;
+  color: #e93656;
+  font-family: "Roboto regular";
+}
+.author-info .name {
+  font-size: 28px;
+  letter-spacing: 0.84px;
+  color: #ffffff;
+  font-family: "Glacial Indifference bold";
+}
+.slider-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.nav-btn {
+  width: 13px;
+  height: 13px;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.nav-btn.active {
+  background-color: #e93656;
+  border-color: #e93656;
+}
+
+@media (max-width: 768px) {
+  .slider-text h2 {
+    font-size: 30px;
+    line-height: 40px;
+  }
+  .slider-text h1 {
+    font-size: 36px;
+    line-height: 30px;
+  }
+  .slider-text p {
+    font-size: 25px;
+    line-height: 30px;
+    margin-top: 10px;
+  }
+  .slider-social-links img {
+    margin-top: 20px;
+  }
+  .slider-section-title .number {
+    font-size: 90px;
+  }
+  .slider-section-title .label {
+    font-size: 30px;
+    line-height: 25px;
+  }
+  .slider-stats {
+    right: 20px;
+  }
+  .slider-stats p {
+    font-size: 15px;
+    line-height: 0px;
+  }
+}
+
+@media (768px <= width <= 1024px) {
+  .slider-text h2 {
+    line-height: 50px;
+  }
+  .slider-text h1 {
+    line-height: 60px;
+  }
+  .slider-social-links img {
+    margin-top: 10px;
+  }
+  .slider-stats p {
+    font-size: 20px;
+    line-height: 0px;
+  }
+  .slider-section-title .number {
+    font-size: 120px;
+  }
+  .slider-section-title .label {
+    font-size: 40px;
+    line-height: 25px;
+  }
+}
