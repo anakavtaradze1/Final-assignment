@@ -1,5 +1,7 @@
 const slides = document.querySelectorAll(".slide-item");
 const slideNumber = document.querySelector(".slider-section-title .number");
+const sliderContainer = document.getElementById("slider-container");
+
 let currentSlide = 0;
 let slideInterval = setInterval(nextSlide, 5000);
 
@@ -37,48 +39,77 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+if (sliderContainer) {
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  sliderContainer.addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].clientX;
+  });
+
+  sliderContainer.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const swipeDistance = touchEndX - touchStartX;
+
+    if (swipeDistance < -swipeThreshold) {
+      nextSlide();
+      resetInterval();
+    } else if (swipeDistance > swipeThreshold) {
+      prevSlide();
+      resetInterval();
+    }
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const skillsSection = document.querySelector("#skills-section");
   const progressBars = document.querySelectorAll(".progress");
 
-  const observerCallback = (items) => {
-    items.forEach((item) => {
-      if (item.isIntersecting) {
-        progressBars.forEach((bar) => {
-          bar.style.width = bar.dataset.width;
-        });
-      } else {
-        progressBars.forEach((bar) => {
-          bar.style.width = "0";
-        });
-      }
+  if (skillsSection) {
+    const observerCallback = (items) => {
+      items.forEach((item) => {
+        if (item.isIntersecting) {
+          progressBars.forEach((bar) => {
+            bar.style.width = bar.dataset.width;
+          });
+        } else {
+          progressBars.forEach((bar) => {
+            bar.style.width = "0";
+          });
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.1,
     });
-  };
 
-  const observer = new IntersectionObserver(observerCallback, {
-    threshold: 0.1,
-  });
-
-  observer.observe(skillsSection);
+    observer.observe(skillsSection);
+  }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
   const testimonialsData = [
     {
       text: "Ana Kavtaradze is the bridge between design and code that every designer wishes for. Her work is clean, precise, and she has an innate understanding of visual hierarchy and spacing. She made my designs better. I would work with her again in a heartbeat.",
-      photo: "/src/images/d3.svg",
+      photo: "src/images/d3.svg",
       profession: "Graphic Designer",
       name: "Anna Keller",
     },
     {
       text: "A great developer and an even better teammate. Ana elevates the entire team with their positive attitude and insightful code reviews. A pleasure to lead.",
-      photo: "/src/images/d4.svg",
+      photo: "src/images/d4.svg",
       profession: "Lead Developer",
       name: "Mau Thomas",
     },
     {
-      text: "Ana Kavtardze is a fantastic technical partner. She excels at collaborating with design, QA, and backend teams to deliver a polished final product. She doesn't just build features; she takes ownership of the outcome and is committed to the project's success. Highly effective.",
-      photo: "/src/images/d5.svg",
+      text: "Ana Kavtaradze is a fantastic technical partner. She excels at collaborating with design, QA, and backend teams to deliver a polished final product. She doesn't just build features; she takes ownership of the outcome and is committed to the project's success. Highly effective.",
+      photo: "src/images/d5.svg",
       profession: "Project Manager",
       name: "John Carter",
     },
@@ -112,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const clickedButton = event.target.closest(".nav-btn");
       if (!clickedButton) return;
 
-      displayTestimonial(clickedButton.dataset.index);
+      displayTestimonial(Number(clickedButton.dataset.index));
     });
     displayTestimonial(0);
   }
