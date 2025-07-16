@@ -156,3 +156,163 @@ document.addEventListener("DOMContentLoaded", () => {
     navEl: document.querySelector(".slider-nav"),
   });
 });
+
+const form = document.getElementById("contact-form");
+const username = document.getElementById("name");
+const email = document.getElementById("email");
+const website = document.getElementById("website");
+const message = document.getElementById("message");
+const submitButton = document.getElementById("submit-button");
+const successDialog = document.getElementById("successDialog");
+const closeDialogBtn = document.getElementById("closeDialogBtn");
+
+closeDialogBtn.addEventListener("click", () => {
+  successDialog.close();
+});
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const isNameValid = validateName();
+  const isEmailValid = validateEmail();
+  const isWebsiteValid = validateWebsite();
+  const isMessageValid = validateMessage();
+
+  if (isNameValid && isEmailValid && isWebsiteValid && isMessageValid) {
+    const formData = {
+      name: username.value,
+      email: email.value,
+      website: website.value,
+      message: message.value,
+    };
+    sendUserData(formData);
+  }
+});
+
+function validateEmail() {
+  const emailValue = email.value.trim();
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if (isEmpty(email)) {
+    setError(email, "Email is required");
+    return false;
+  } else if (!emailRegex.test(emailValue)) {
+    setError(email, "Please enter a valid email address");
+    return false;
+  } else {
+    setSuccess(email, "Email is valid");
+    return true;
+  }
+}
+
+function validateName() {
+  const nameValue = username.value.trim();
+  if (isEmpty(username)) {
+    setError(username, "Name is required");
+    return false;
+  } else if (nameValue.length < 3) {
+    setError(username, "Name must be at least 3 characters long");
+    return false;
+  } else {
+    setSuccess(username, "Name is valid");
+    return true;
+  }
+}
+
+function validateMessage() {
+  const messageValue = message.value.trim();
+  const minLength = 10;
+  const maxLength = 300;
+
+  if (isEmpty(message)) {
+    setError(message, "Message is required");
+    return false;
+  } else if (messageValue.length < minLength) {
+    setError(message, `Message must be at least ${minLength} characters long.`);
+    return false;
+  } else if (messageValue.length > maxLength) {
+    setError(message, `Message cannot exceed ${maxLength} characters.`);
+    return false;
+  } else {
+    setSuccess(message, "Message is valid");
+    return true;
+  }
+}
+
+function validateWebsite() {
+  const websiteValue = website.value.trim();
+
+  const urlRegex = /^(https?:\/\/)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/.*)?$/;
+
+  if (isEmpty(website)) {
+    setError(website, "Website is required");
+    return false;
+  } else if (!urlRegex.test(websiteValue)) {
+    setError(
+      website,
+      "Please enter a valid website starting with http:// or https://"
+    );
+    return false;
+  } else {
+    setSuccess(website, "Website is valid");
+    return true;
+  }
+}
+
+function isEmpty(input) {
+  return input.validity.valueMissing || input.value.trim() === "";
+}
+
+function setError(element, message) {
+  const formGroup = element.closest(".form-group");
+  formGroup.classList.remove("success");
+  formGroup.classList.add("error");
+  formGroup.querySelector(".message").textContent = message;
+}
+
+function setSuccess(element, message) {
+  const formGroup = element.closest(".form-group");
+  formGroup.classList.remove("error");
+  formGroup.classList.add("success");
+  formGroup.querySelector(".message").textContent = message;
+}
+
+function clearValidationStyles() {
+  document.querySelectorAll(".form-group").forEach((group) => {
+    group.classList.remove("error", "success");
+    group.querySelector(".message").textContent = "";
+  });
+}
+
+function sendUserData(formData) {
+  fetch("https://borjomi.loremipsum.ge/api/send-message", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (
+        data.status === 1 &&
+        data.desc === "Message has been sent successfully"
+      ) {
+        successDialog.showModal();
+        form.reset();
+        clearValidationStyles();
+      }
+    })
+    .catch((error) => {
+      console.error("Error sending data:", error);
+      alert(
+        "An error occurred while sending your message. Please try again later."
+      );
+    });
+}
