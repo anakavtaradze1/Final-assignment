@@ -316,3 +316,35 @@ function sendUserData(formData) {
       );
     });
 }
+
+username.addEventListener("input", validateName);
+email.addEventListener("input", validateEmail);
+message.addEventListener("input", validateMessage);
+website.addEventListener("input", validateWebsite);
+
+document.addEventListener("DOMContentLoaded", function () {
+  const categoryItems = document.querySelectorAll(".projects-menu li");
+  const projects = document.querySelectorAll(".project");
+
+  categoryItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      categoryItems.forEach((i) => i.classList.remove("active"));
+      item.classList.add("active");
+
+      const selectedCategory = item.getAttribute("data-category");
+
+      projects.forEach((project) => {
+        const projectCategory = project.getAttribute("data-category");
+
+        if (
+          selectedCategory === "all" ||
+          projectCategory === selectedCategory
+        ) {
+          project.style.display = "block";
+        } else {
+          project.style.display = "none";
+        }
+      });
+    });
+  });
+});
