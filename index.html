@@ -4,28 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Final Assignment</title>
+    <link rel="stylesheet" href="src/css/fontawesome.min.css" />
     <link rel="stylesheet" href="src/css/fonts.css" />
     <link rel="stylesheet" href="src/css/style.css" />
+    <link
+      rel="shortcut icon"
+      href="src/images/online-resume.png"
+      type="image/png"
+    />
+
+    <meta
+      name="description"
+      content="The professional portfolio of Ana Kavtaradze, skilled Front-End Developer from Tbilisi, Georgia. Specializing in creating beautiful, responsive, and functional web applications using HTML, CSS, and JavaScript. Explore my projects, skills, and contact information to learn more about my work and how I can help you build your next web application."
+    />
+    <meta
+      name="keywords"
+      content="front-end developer, web development, HTML, CSS, JavaScript, responsive design, user experience, portfolio"
+    />
+    <meta
+      property="og:url"
+      content="https://github.com/anakavtaradze1/Final-assignment"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Ana Kavtaradze | Front-End Developer Portfolio"
+    />
+    <meta
+      property="og:description"
+      content="Explore the work of Ana Kavtaradze, a front-end developer passionate about building exceptional user experiences. View projects, skills, and contact information."
+    />
+    <meta property="og:image" content="" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Ana Kavtaradze | Front-End Developer Portfolio"
+    />
+    <meta
+      name="twitter:description"
+      content="Explore the work of Ana Kavtaradze, a front-end developer passionate about building exceptional user experiences. View projects, skills, and contact information."
+    />
+    <meta name="twitter:image" content="" />
   </head>
+
   <body>
     <section>
       <div class="slider-container" id="slider-container">
         <div class="slide-item">
           <img
             src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?cs=srgb&dl=pexels-souvenirpixels-414612.jpg&fm=jpg"
-            alt=""
+            alt="profile picture"
           />
         </div>
         <div class="slide-item">
           <img
             src="https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE="
-            alt=""
+            alt="profile picture"
           />
         </div>
         <div class="slide-item">
           <img
             src="https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg"
-            alt=""
+            alt="profile picture"
           />
         </div>
 
@@ -39,11 +80,30 @@
             <a
               href="https://www.facebook.com/ana.kavtaradze.52"
               target="_blank"
+              class="slider-social-facebook"
             >
-              <img src="src/images/facebook.png" alt="Facebook" />
+              <i class="fa-brands fa-facebook"></i>
             </a>
-            <a href="https://github.com/" target="_blank">
-              <img src="src/images/download.png" alt="github" />
+            <a
+              href="https://www.instagram.com/anikavtaradze/"
+              target="_blank"
+              class="slider-social-instagram"
+            >
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ana-kavtaradze-97836b363/"
+              target="_blank"
+              class="slider-social-linkedin"
+            >
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a
+              href="https://github.com/anakavtaradze1"
+              target="_blank"
+              class="slider-social-github"
+            >
+              <i class="fa-brands fa-github"></i>
             </a>
           </div>
         </div>
@@ -83,7 +143,7 @@
           />
         </div>
 
-        <div id="skills-section">
+        <div id="skills-section" class="skills-section">
           <div class="skill">
             <p>HTML<span> ( 100% )</span></p>
             <div class="progress-bar">
@@ -114,10 +174,19 @@
               href="https://www.facebook.com/ana.kavtaradze.52"
               target="_blank"
             >
-              <img src="src/images/facebook.png" />
+              <i class="fa-brands fa-facebook"></i>
             </a>
-            <a href="https://github.com/" target="_blank">
-              <img src="src/images/download.png" />
+            <a href="https://www.instagram.com/anikavtaradze/" target="_blank">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ana-kavtaradze-97836b363/"
+              target="_blank"
+            >
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/anakavtaradze1" target="_blank">
+              <i class="fa-brands fa-github"></i>
             </a>
           </div>
         </div>
@@ -125,41 +194,49 @@
 
       <div class="contact-section">
         <div class="container contact-content">
-          <div class="number-section">
-            <div class="icon-wrapper">
-              <img src="src/images/1.svg" alt="phone" />
-            </div>
-            <div>
-              <h2>Phone Number</h2>
-              <a href="tel:+995593548554">+ 995 593 54 85 54</a>
+          <button class="slider-arrow prev-arrow"></button>
+          <div class="contact-slider-window">
+            <div class="contact-items-container">
+              <div class="number-section">
+                <div class="icon-wrapper">
+                  <img src="src/images/1.svg" alt="phone" />
+                </div>
+                <div>
+                  <h2>Phone Number</h2>
+                  <a href="tel:+995593548554">+ 995 593 54 85 54</a>
+                </div>
+              </div>
+              <div class="address-section">
+                <div class="icon-wrapper">
+                  <img src="src/images/2.svg" alt="location" />
+                </div>
+                <div>
+                  <h2>User Address</h2>
+                  <a
+                    href="https://maps.app.goo.gl/4qRDNchYkX1wiEQs7"
+                    target="_blank"
+                  >
+                    <p>
+                      75 Ilia Chavchavadze Avenue, Building 10, Tbilisi, Georgia
+                    </p>
+                  </a>
+                </div>
+              </div>
+              <div class="email-section">
+                <div class="icon-wrapper">
+                  <img src="src/images/3.svg" alt="email" />
+                </div>
+                <div>
+                  <h2>Email Address</h2>
+                  <a href="mailto:anakavtaradze111@gmail.com"
+                    >anakavtaradze111@gmail.com</a
+                  >
+                </div>
+              </div>
             </div>
           </div>
-
-          <div class="adress-section">
-            <div class="icon-wrapper">
-              <img src="src/images/2.svg" alt="location" />
-            </div>
-            <div>
-              <h2>User Address</h2>
-              <a href="https://maps.app.goo.gl/Tjjw7Bis5KzaETFH9">
-                <p>
-                  75 Ilia Chavchavadze Avenue, Building 10, Tbilisi, Georgia
-                </p>
-              </a>
-            </div>
-          </div>
-
-          <div class="email-section">
-            <div class="icon-wrapper">
-              <img src="src/images/3.svg" alt="email" />
-            </div>
-            <div>
-              <h2>Email Address</h2>
-              <a href="mailto:Anakavtaradze111.com"
-                >anakavtaradze111@gmail.com</a
-              >
-            </div>
-          </div>
+          <button class="slider-arrow next-arrow"></button>
+          <div class="contact-nav-dots"></div>
         </div>
       </div>
     </section>
@@ -281,7 +358,7 @@
           <div class="project" data-category="work">
             <a href="#" target="_blank">
               <img
-                src="src/images/7034514e7f25fd6a08488e4c195ee1dc.jpg"
+                src="src/images/Internet-Vector-Illustration.jpg"
                 alt="Work Idea"
                 class="project-img"
               />
@@ -298,7 +375,7 @@
           <div class="project" data-category="mockup">
             <a href="#" target="_blank">
               <img
-                src="src/images/7034514e7f25fd6a08488e4c195ee1dc.jpg"
+                src="src/images/girl-walking-on-isolated-moon-background-flat-illustration-free-vector.jpg"
                 alt="3D Mockup Design"
                 class="project-img"
               />
@@ -315,7 +392,7 @@
           <div class="project" data-category="psd">
             <a href="#" target="_blank">
               <img
-                src="src/images/7034514e7f25fd6a08488e4c195ee1dc.jpg"
+                src="src/images/free-vector-illustrations-social.png"
                 alt="PSD Design"
                 class="project-img"
               />
@@ -332,7 +409,7 @@
           <div class="project" data-category="logo">
             <a href="#" target="_blank">
               <img
-                src="src/images/7034514e7f25fd6a08488e4c195ee1dc.jpg"
+                src="src/images/freelance-work-at-home-freelance-man-working-at-home-freelance-concept-illustration-free-vector.jpg"
                 alt="Logo Design"
                 class="project-img"
               />
@@ -349,7 +426,7 @@
           <div class="project" data-category="presentation">
             <a href="#" target="_blank">
               <img
-                src="src/images/7034514e7f25fd6a08488e4c195ee1dc.jpg"
+                src="src/images/an-abstract-illustration-of-a-persons-head-filled-with-creative-ideas-and-inspiration-with-a-colorful-and-dynamic-design-free-vector.jpg"
                 alt="Presentation"
                 class="project-img"
               />
@@ -366,7 +443,7 @@
           <div class="project" data-category="icons">
             <a href="#" target="_blank">
               <img
-                src="src/images/7034514e7f25fd6a08488e4c195ee1dc.jpg"
+                src="src/images/001-understand-yourself-large-opt.png"
                 alt="Icons"
                 class="project-img"
               />
@@ -423,7 +500,7 @@
         </div>
         <div class="year">2013 - 2014</div>
         <div class="article-image">
-          <img src="src/images/frontend-development-tools.png" alt="Frontend" />
+          <img src="src/images/frontend-skills.jpg" alt="Frontend" />
         </div>
       </div>
 
@@ -443,7 +520,10 @@
         </div>
         <div class="year">2015 - 2016</div>
         <div class="article-image">
-          <img src="src/images/frontend-development-tools.png" alt="Frontend" />
+          <img
+            src="src/images/02-Developer Hiring and Skills (1).png"
+            alt="Frontend"
+          />
         </div>
       </div>
     </section>
@@ -454,10 +534,7 @@
 
       <div class="partners">
         <div class="partner-item">
-          <img
-            src="src/images/360_F_433010773_uM4nzpaRYXuwrZPGoasgXX75fTCS1vYl.jpg"
-            alt="partners"
-          />
+          <img src="src/images/Layer 2@2x.png" alt="partners" />
           <div class="partner-hover">
             <h4>CLIENT 1</h4>
             <p>
@@ -468,10 +545,7 @@
         </div>
 
         <div class="partner-item">
-          <img
-            src="src/images//360_F_433010773_uM4nzpaRYXuwrZPGoasgXX75fTCS1vYl.jpg"
-            alt="partners"
-          />
+          <img src="src/images/Layer 3@2x.png" alt="partners" />
           <div class="partner-hover">
             <h4>CLIENT 2</h4>
             <p>
@@ -482,10 +556,7 @@
         </div>
 
         <div class="partner-item">
-          <img
-            src="src/images/360_F_433010773_uM4nzpaRYXuwrZPGoasgXX75fTCS1vYl.jpg"
-            alt="partners"
-          />
+          <img src="src/images/Layer 4@2x.png" alt="partners" />
           <div class="partner-hover">
             <h4>CLIENT 3</h4>
             <p>
@@ -496,10 +567,7 @@
         </div>
 
         <div class="partner-item">
-          <img
-            src="src/images/360_F_433010773_uM4nzpaRYXuwrZPGoasgXX75fTCS1vYl.jpg"
-            alt="partners"
-          />
+          <img src="src/images/Layer 5@2x.png" alt="partners" />
           <div class="partner-hover">
             <h4>CLIENT 4</h4>
             <p>
@@ -510,10 +578,7 @@
         </div>
 
         <div class="partner-item">
-          <img
-            src="src/images/360_F_433010773_uM4nzpaRYXuwrZPGoasgXX75fTCS1vYl.jpg"
-            alt="New Partner Logo"
-          />
+          <img src="src/images/Layer 2@2x.png" alt="New Partner Logo" />
           <div class="partner-hover">
             <h4>CLIENT 5</h4>
             <p>
@@ -565,10 +630,22 @@
         </form>
 
         <dialog id="successDialog" class="success-dialog">
+          <div class="dialog-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+              />
+            </svg>
+          </div>
+          <h2>Success!</h2>
           <p>
             Thank you for getting in touch! We appreciate you contacting us.
           </p>
-          <button id="closeDialogBtn" class="closebtn">Close</button>
+          <button id="closeDialogBtn" class="closebtn">Got it</button>
         </dialog>
       </div>
     </section>
@@ -586,11 +663,30 @@
             <a
               href="https://www.facebook.com/ana.kavtaradze.52"
               target="_blank"
+              class="roca-social-links"
             >
-              <img src="src/images/facebook.png" alt="Facebook" />
+              <i class="fa-brands fa-facebook"></i>
             </a>
-            <a href="https://github.com/" target="_blank">
-              <img src="src/images/download.png" alt="github" />
+            <a
+              href="https://www.instagram.com/anikavtaradze/"
+              target="_blank"
+              class="roca-social-links"
+            >
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ana-kavtaradze-97836b363/"
+              class="roca-social-links"
+              target="_blank"
+            >
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a
+              href="https://github.com/anakavtaradze1"
+              target="_blank"
+              class="roca-social-links"
+            >
+              <i class="fa-brands fa-github"></i>
             </a>
           </div>
         </div>
@@ -605,6 +701,7 @@
         </div>
       </div>
     </footer>
+
     <script src="src/js/app.js"></script>
   </body>
 </html>
