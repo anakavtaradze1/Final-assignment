@@ -23,7 +23,7 @@
     />
     <meta
       property="og:url"
-      content="https://github.com/anakavtaradze1/Final-assignment"
+      content="https://anakavtaradze1.github.io/Final-assignment/"
     />
     <meta property="og:type" content="website" />
     <meta
@@ -49,34 +49,18 @@
   </head>
 
   <body>
-    <section>
-      <div class="slider-container" id="slider-container">
-        <div class="slide-item">
-          <img
-            src="https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?cs=srgb&dl=pexels-souvenirpixels-414612.jpg&fm=jpg"
-            alt="profile picture"
-          />
-        </div>
-        <div class="slide-item">
-          <img
-            src="https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE="
-            alt="profile picture"
-          />
-        </div>
-        <div class="slide-item">
-          <img
-            src="https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg"
-            alt="profile picture"
-          />
-        </div>
+    <section class="slider-container" id="slider-container">
+      <div class="slide-item slide-item-1"></div>
+      <div class="slide-item slide-item-2"></div>
+      <div class="slide-item slide-item-3"></div>
 
-        <div class="slider-content">
-          <div class="slider-text">
-            <h2>Hi, I' Am</h2>
-            <h1>Ana Kavtaradze</h1>
-            <p>I am Front-End developer</p>
-          </div>
-          <div class="slider-social-links">
+      <div class="slider-content">
+        <p>Hi, I' Am</p>
+        <h1>Ana Kavtaradze</h1>
+        <p>I am Front-End developer</p>
+
+        <ul class="slider-social-links">
+          <li>
             <a
               href="https://www.facebook.com/ana.kavtaradze.52"
               target="_blank"
@@ -84,6 +68,8 @@
             >
               <i class="fa-brands fa-facebook"></i>
             </a>
+          </li>
+          <li>
             <a
               href="https://www.instagram.com/anikavtaradze/"
               target="_blank"
@@ -91,6 +77,8 @@
             >
               <i class="fa-brands fa-instagram"></i>
             </a>
+          </li>
+          <li>
             <a
               href="https://www.linkedin.com/in/ana-kavtaradze-97836b363/"
               target="_blank"
@@ -98,6 +86,8 @@
             >
               <i class="fa-brands fa-linkedin"></i>
             </a>
+          </li>
+          <li>
             <a
               href="https://github.com/anakavtaradze1"
               target="_blank"
@@ -105,18 +95,18 @@
             >
               <i class="fa-brands fa-github"></i>
             </a>
-          </div>
-        </div>
+          </li>
+        </ul>
+      </div>
 
-        <div class="slider-section-title">
-          <span class="number">01</span>
-          <span class="label">About me</span>
-        </div>
+      <div class="slider-section-title">
+        <span class="number">01</span>
+        <span class="label">About me</span>
+      </div>
 
-        <div class="slider-stats">
-          <p><span>100%</span> Satisfied Clients</p>
-          <div class="progress-line"></div>
-        </div>
+      <div class="slider-stats">
+        <p><span>100%</span> Satisfied Clients</p>
+        <div class="progress-line"></div>
       </div>
     </section>
 
@@ -132,15 +122,34 @@
             improve my skills. My goal is to build user-friendly interfaces that
             provide an exceptional user experience.
           </p>
-          <a href="#">
-            <button>Hire Me</button>
-          </a>
+          <button class="hire-me-btn">Hire Me</button>
         </div>
 
+        <dialog id="contact-dialog" class="contact-dialog">
+          <div class="dialog-content">
+            <button class="close-btn">&times;</button>
+            <h2>Contact Me</h2>
+            <p>I'd love to hear from you. Send me a message!</p>
+            <form id="contactform">
+              <input type="text" name="name" placeholder="Your Name" required />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                required
+              />
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                required
+              ></textarea>
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+          </div>
+        </dialog>
+
         <div class="about-me-pfp">
-          <img
-            src="https://img.freepik.com/free-photo/close-up-portrait-smiling-young-woman-looking-camera_171337-17994.jpg?semt=ais_hybrid&w=740"
-          />
+          <img src="src/images/slider-1.jpeg" />
         </div>
 
         <div id="skills-section" class="skills-section">
@@ -165,30 +174,41 @@
           <div class="skill">
             <p>React<span> ( 20% )</span></p>
             <div class="progress-bar">
-              <div class="progress" data-width="30%"></div>
+              <div class="progress" data-width="20%"></div>
             </div>
           </div>
 
-          <div class="aboutme-socials">
-            <a
-              href="https://www.facebook.com/ana.kavtaradze.52"
-              target="_blank"
-            >
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a href="https://www.instagram.com/anikavtaradze/" target="_blank">
-              <i class="fa-brands fa-instagram"></i>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/ana-kavtaradze-97836b363/"
-              target="_blank"
-            >
-              <i class="fa-brands fa-linkedin"></i>
-            </a>
-            <a href="https://github.com/anakavtaradze1" target="_blank">
-              <i class="fa-brands fa-github"></i>
-            </a>
-          </div>
+          <ul class="aboutme-socials">
+            <li>
+              <a
+                href="https://www.facebook.com/ana.kavtaradze.52"
+                target="_blank"
+              >
+                <i class="fa-brands fa-facebook"></i>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/anikavtaradze/"
+                target="_blank"
+              >
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/ana-kavtaradze-97836b363/"
+                target="_blank"
+              >
+                <i class="fa-brands fa-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/anakavtaradze1" target="_blank">
+                <i class="fa-brands fa-github"></i>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -206,6 +226,7 @@
                   <a href="tel:+995593548554">+ 995 593 54 85 54</a>
                 </div>
               </div>
+
               <div class="address-section">
                 <div class="icon-wrapper">
                   <img src="src/images/2.svg" alt="location" />
@@ -216,12 +237,11 @@
                     href="https://maps.app.goo.gl/4qRDNchYkX1wiEQs7"
                     target="_blank"
                   >
-                    <p>
-                      75 Ilia Chavchavadze Avenue, Building 10, Tbilisi, Georgia
-                    </p>
+                    75 Ilia Chavchavadze Avenue, Building 10, Tbilisi, Georgia
                   </a>
                 </div>
               </div>
+
               <div class="email-section">
                 <div class="icon-wrapper">
                   <img src="src/images/3.svg" alt="email" />
@@ -315,28 +335,26 @@
       </div>
     </section>
 
-    <section>
-      <div class="slider">
-        <div class="container slider-box">
-          <div class="author-text">
-            <p id="slide-text"></p>
-          </div>
-
-          <div class="author-section">
-            <div class="author-photo-container">
-              <img id="slide-photo" alt="Author Photo" />
-            </div>
-            <div class="author-info">
-              <div>
-                <img src="src/images/quote.svg" />
-              </div>
-              <p id="slide-profession" class="profession"></p>
-              <p id="slide-name" class="name"></p>
-            </div>
-          </div>
-
-          <div class="slider-nav"></div>
+    <section class="slider">
+      <div class="container slider-box">
+        <div class="author-text">
+          <p id="slide-text"></p>
         </div>
+
+        <div class="author-section">
+          <div class="author-photo-container">
+            <img id="slide-photo" alt="Author Photo" />
+          </div>
+
+          <div class="author-info">
+            <img src="src/images/quote.svg" />
+
+            <p id="slide-profession" class="profession"></p>
+            <p id="slide-name" class="name"></p>
+          </div>
+        </div>
+
+        <div class="slider-nav"></div>
       </div>
     </section>
 
@@ -477,6 +495,7 @@
             quasi cumque dolores dolor eveniet, nesciunt sapiente, delectus nam
             mollitia dolore excepturi neque! Debitis!
           </p>
+          <a href="#" class="read-more">READ MORE</a>
         </div>
         <div class="year">2011 - 2012</div>
         <div class="article-image">
@@ -497,6 +516,7 @@
             quasi cumque dolores dolor eveniet, nesciunt sapiente, delectus nam
             mollitia dolore excepturi neque! Debitis!
           </p>
+          <a href="#" class="read-more">READ MORE</a>
         </div>
         <div class="year">2013 - 2014</div>
         <div class="article-image">
@@ -517,6 +537,7 @@
             quasi cumque dolores dolor eveniet, nesciunt sapiente, delectus nam
             mollitia dolore excepturi neque! Debitis!
           </p>
+          <a href="#" class="read-more">READ MORE</a>
         </div>
         <div class="year">2015 - 2016</div>
         <div class="article-image">
@@ -659,36 +680,37 @@
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
             veniam quis nostrud.
           </p>
-          <div class="roca-socials">
-            <a
-              href="https://www.facebook.com/ana.kavtaradze.52"
-              target="_blank"
-              class="roca-social-links"
-            >
-              <i class="fa-brands fa-facebook"></i>
-            </a>
-            <a
-              href="https://www.instagram.com/anikavtaradze/"
-              target="_blank"
-              class="roca-social-links"
-            >
-              <i class="fa-brands fa-instagram"></i>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/ana-kavtaradze-97836b363/"
-              class="roca-social-links"
-              target="_blank"
-            >
-              <i class="fa-brands fa-linkedin"></i>
-            </a>
-            <a
-              href="https://github.com/anakavtaradze1"
-              target="_blank"
-              class="roca-social-links"
-            >
-              <i class="fa-brands fa-github"></i>
-            </a>
-          </div>
+          <ul class="roca-socials">
+            <li>
+              <a
+                href="https://www.facebook.com/ana.kavtaradze.52"
+                target="_blank"
+              >
+                <i class="fa-brands fa-facebook"></i>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/anikavtaradze/"
+                target="_blank"
+              >
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/ana-kavtaradze-97836b363/"
+                target="_blank"
+              >
+                <i class="fa-brands fa-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/anakavtaradze1" target="_blank">
+                <i class="fa-brands fa-github"></i>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 

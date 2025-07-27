@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initProjectsMenuScroll();
   initContactForm();
   initSuccessDialog();
+  initHireMeDialog();
 
   function initHeroSlider() {
     const slides = document.querySelectorAll(".slide-item");
@@ -37,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
       clearInterval(slideInterval);
       slideInterval = setInterval(nextSlide, 5000);
     }
-
     showSlide();
 
     document.addEventListener("keydown", (e) => {
@@ -59,8 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (touchEndX < touchStartX - 50) {
         nextSlide();
         resetInterval();
-      }
-      if (touchEndX > touchStartX + 50) {
+      } else if (touchEndX > touchStartX + 50) {
         prevSlide();
         resetInterval();
       }
@@ -92,6 +91,85 @@ document.addEventListener("DOMContentLoaded", function () {
     const nextBtn = document.querySelector(".next-arrow");
     let isSliderActive = false;
 
+    let currentIndex = 0,
+      totalItems = 0;
+    let isDragging = false,
+      startPosX = 0,
+      startPosY = 0,
+      currentTranslate = 0,
+      prevTranslate = 0;
+    let sliderWindowRef = null;
+    let dots = [];
+
+    function updateUI() {
+      if (!sliderWindowRef) return;
+      const slideWidth = sliderWindowRef.offsetWidth;
+      container.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+      dots.forEach((dot, index) =>
+        dot.classList.toggle("active", index === currentIndex)
+      );
+    }
+
+    function goToSlide(index) {
+      currentIndex = index;
+      container.style.transition = "transform 0.4s ease-out";
+      updateUI();
+    }
+
+    function handleNextBtnStart(e) {
+      e.stopPropagation();
+      nextBtn.classList.add("tapped");
+      currentIndex = (currentIndex + 1) % totalItems;
+      container.style.transition = "transform 0.4s ease-out";
+      updateUI();
+    }
+    function handleNextBtnEnd() {
+      setTimeout(() => nextBtn.classList.remove("tapped"), 150);
+    }
+    function handlePrevBtnStart(e) {
+      e.stopPropagation();
+      prevBtn.classList.add("tapped");
+      currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+      container.style.transition = "transform 0.4s ease-out";
+      updateUI();
+    }
+    function handlePrevBtnEnd() {
+      setTimeout(() => prevBtn.classList.remove("tapped"), 150);
+    }
+
+    function handleSwipeStart(event) {
+      startPosX = event.touches[0].clientX;
+      startPosY = event.touches[0].clientY;
+      isDragging = true;
+      container.style.transition = "none";
+      prevTranslate = -currentIndex * sliderWindowRef.offsetWidth;
+      currentTranslate = prevTranslate;
+    }
+    function handleSwipeMove(event) {
+      if (isDragging) {
+        const diffX = event.touches[0].clientX - startPosX;
+        const diffY = event.touches[0].clientY - startPosY;
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+          event.preventDefault();
+        }
+        currentTranslate = prevTranslate + diffX;
+        container.style.transform = `translateX(${currentTranslate}px)`;
+      }
+    }
+    function handleSwipeEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      const movedBy = currentTranslate - prevTranslate;
+      container.style.transition = "transform 0.3s ease-out";
+      if (movedBy < -75) {
+        currentIndex = (currentIndex + 1) % totalItems;
+      }
+      if (movedBy > 75) {
+        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+      }
+      updateUI();
+    }
+
     function manageContactSlider() {
       if (window.innerWidth <= 768) {
         if (!isSliderActive) {
@@ -108,10 +186,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function initializeSlider() {
       const items = document.querySelectorAll(".contact-items-container > div");
-      const sliderWindow = document.querySelector(".contact-slider-window");
-      if (!items || items.length === 0 || !sliderWindow) return;
-      let currentIndex = 0;
-      const totalItems = items.length;
+      sliderWindowRef = document.querySelector(".contact-slider-window");
+      if (!items || items.length === 0 || !sliderWindowRef) return;
+
+      totalItems = items.length;
+      currentIndex = 0;
+
       dotsContainer.innerHTML = "";
       items.forEach((_, index) => {
         const dot = document.createElement("button");
@@ -119,87 +199,37 @@ document.addEventListener("DOMContentLoaded", function () {
         dot.addEventListener("click", () => goToSlide(index));
         dotsContainer.appendChild(dot);
       });
-      const dots = dotsContainer.querySelectorAll(".dot");
-      function updateUI() {
-        const slideWidth = sliderWindow.offsetWidth;
-        container.style.transition = "transform 0.4s ease-out";
-        container.style.transform = `translateX(-${
-          currentIndex * slideWidth
-        }px)`;
-        dots.forEach((dot, index) =>
-          dot.classList.toggle("active", index === currentIndex)
-        );
-      }
-      function goToSlide(index) {
-        currentIndex = index;
-        updateUI();
-      }
-      nextBtn.addEventListener("touchstart", (e) => {
-        e.stopPropagation();
-        nextBtn.classList.add("tapped");
-        currentIndex = (currentIndex + 1) % totalItems;
-        updateUI();
-      });
-      nextBtn.addEventListener("touchend", () =>
-        setTimeout(() => nextBtn.classList.remove("tapped"), 150)
-      );
-      prevBtn.addEventListener("touchstart", (e) => {
-        e.stopPropagation();
-        prevBtn.classList.add("tapped");
-        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-        updateUI();
-      });
-      prevBtn.addEventListener("touchend", () =>
-        setTimeout(() => prevBtn.classList.remove("tapped"), 150)
-      );
+      dots = dotsContainer.querySelectorAll(".dot");
 
-      let isDragging = false,
-        startPosX = 0,
-        startPosY = 0,
-        currentTranslate = 0,
-        prevTranslate = 0;
-      sliderWindow.addEventListener("touchstart", touchStart);
-      sliderWindow.addEventListener("touchmove", touchMove);
-      sliderWindow.addEventListener("touchend", touchEnd);
-      sliderWindow.addEventListener("touchcancel", touchEnd);
-      function touchStart(event) {
-        startPosX = event.touches[0].clientX;
-        startPosY = event.touches[0].clientY;
-        isDragging = true;
-        container.style.transition = "none";
-        prevTranslate = -currentIndex * sliderWindow.offsetWidth;
-        currentTranslate = prevTranslate;
-      }
-      function touchMove(event) {
-        if (isDragging) {
-          const diffX = event.touches[0].clientX - startPosX;
-          const diffY = event.touches[0].clientY - startPosY;
-          if (Math.abs(diffX) > Math.abs(diffY)) {
-            event.preventDefault();
-          }
-          currentTranslate = prevTranslate + diffX;
-          container.style.transform = `translateX(${currentTranslate}px)`;
-        }
-      }
-      function touchEnd() {
-        if (!isDragging) return;
-        isDragging = false;
-        const movedBy = currentTranslate - prevTranslate;
-        container.style.transition = "transform 0.3s ease-out";
-        if (movedBy < -75) {
-          currentIndex = (currentIndex + 1) % totalItems;
-        }
-        if (movedBy > 75) {
-          currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-        }
-        updateUI();
-      }
+      nextBtn.addEventListener("touchstart", handleNextBtnStart);
+      nextBtn.addEventListener("touchend", handleNextBtnEnd);
+      prevBtn.addEventListener("touchstart", handlePrevBtnStart);
+      prevBtn.addEventListener("touchend", handlePrevBtnEnd);
+      sliderWindowRef.addEventListener("touchstart", handleSwipeStart);
+      sliderWindowRef.addEventListener("touchmove", handleSwipeMove);
+      sliderWindowRef.addEventListener("touchend", handleSwipeEnd);
+      sliderWindowRef.addEventListener("touchcancel", handleSwipeEnd);
+
       updateUI();
     }
 
     function destroySlider() {
+      nextBtn.removeEventListener("touchstart", handleNextBtnStart);
+      nextBtn.removeEventListener("touchend", handleNextBtnEnd);
+      prevBtn.removeEventListener("touchstart", handlePrevBtnStart);
+      prevBtn.removeEventListener("touchend", handlePrevBtnEnd);
+      if (sliderWindowRef) {
+        sliderWindowRef.removeEventListener("touchstart", handleSwipeStart);
+        sliderWindowRef.removeEventListener("touchmove", handleSwipeMove);
+        sliderWindowRef.removeEventListener("touchend", handleSwipeEnd);
+        sliderWindowRef.removeEventListener("touchcancel", handleSwipeEnd);
+      }
+
       dotsContainer.innerHTML = "";
       container.style.transform = "";
+      container.style.transition = "";
+      sliderWindowRef = null;
+      dots = [];
     }
 
     manageContactSlider();
@@ -232,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
         name: "Anna Keller",
       },
       {
-        text: "A great developer and an even better teammate. Ana elevates the entire team with their positive attitude and insightful code reviews. A pleasure to lead.",
+        text: "A great developer and an even better teammate. Ana elevates the entire team with her positive attitude and insightful code reviews. A pleasure to lead.",
         photo: "src/images/d4.svg",
         profession: "Lead Developer",
         name: "Mau Thomas",
@@ -255,27 +285,36 @@ document.addEventListener("DOMContentLoaded", function () {
     if (Object.values(elements).every((el) => el)) {
       createTestimonialSlider(testimonialsData, elements);
     }
+
+    function createTestimonialSlider(data, elements) {
+      const { textEl, photoEl, professionEl, nameEl, navEl } = elements;
+      let navigationButtons = [];
+      navEl.innerHTML = "";
+      data.forEach((item, index) => {
+        const button = document.createElement("button");
+        button.className = "nav-btn";
+        button.dataset.index = index;
+        navEl.appendChild(button);
+      });
+      navigationButtons = navEl.querySelectorAll(".nav-btn");
+      const displayTestimonial = (index) => {
+        const testimonial = data[index];
+        textEl.textContent = testimonial.text;
+        photoEl.src = testimonial.photo;
+        professionEl.textContent = testimonial.profession;
+        nameEl.textContent = testimonial.name;
+        navigationButtons.forEach((button, buttonIndex) => {
+          button.classList.toggle("active", buttonIndex == index);
+        });
+      };
+      navEl.addEventListener("click", (event) => {
+        const clickedButton = event.target.closest(".nav-btn");
+        if (!clickedButton) return;
+        displayTestimonial(Number(clickedButton.dataset.index));
+      });
+      displayTestimonial(0);
+    }
   }
-
-  // function initProjectsFilter() {
-  //   const categoryItems = document.querySelectorAll(".projects-menu li");
-  //   const projects = document.querySelectorAll(".project");
-  //   if (!categoryItems.length) return;
-
-  //   categoryItems.forEach((item) => {
-  //     item.addEventListener("click", () => {
-  //       categoryItems.forEach((i) => i.classList.remove("active"));
-  //       item.classList.add("active");
-  //       const selectedCategory = item.getAttribute("data-category");
-  //       projects.forEach((project) => {
-  //         const projectCategory = project.getAttribute("data-category");
-  //         project.style.display =
-  //           selectedCategory === "all" || projectCategory === selectedCategory
-  //             ? "block"
-  //             : "none";
-  //       });
-  //     });
-  //   });
 
   function initProjectsFilter() {
     const categoryItems = document.querySelectorAll(".projects-menu li");
@@ -355,6 +394,131 @@ document.addEventListener("DOMContentLoaded", function () {
     email.addEventListener("input", validateEmail);
     message.addEventListener("input", validateMessage);
     website.addEventListener("input", validateWebsite);
+
+    function validateEmail() {
+      const emailValue = email.value.trim();
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (isEmpty(email)) {
+        setError(email, "Email is required");
+        return false;
+      } else if (!emailRegex.test(emailValue)) {
+        setError(email, "Please enter a valid email address");
+        return false;
+      } else {
+        setSuccess(email, "Email is valid");
+        return true;
+      }
+    }
+
+    function validateName() {
+      const nameValue = username.value.trim();
+      if (isEmpty(username)) {
+        setError(username, "Name is required");
+        return false;
+      } else if (nameValue.length < 3) {
+        setError(username, "Name must be at least 3 characters long");
+        return false;
+      } else {
+        setSuccess(username, "Name is valid");
+        return true;
+      }
+    }
+
+    function validateMessage() {
+      const messageValue = message.value.trim();
+      const minLength = 10;
+      const maxLength = 300;
+      if (isEmpty(message)) {
+        setError(message, "Message is required");
+        return false;
+      } else if (messageValue.length < minLength) {
+        setError(
+          message,
+          `Message must be at least ${minLength} characters long.`
+        );
+        return false;
+      } else if (messageValue.length > maxLength) {
+        setError(message, `Message cannot exceed ${maxLength} characters.`);
+        return false;
+      } else {
+        setSuccess(message, "Message is valid");
+        return true;
+      }
+    }
+
+    function validateWebsite() {
+      const websiteValue = website.value.trim();
+      const urlRegex = /^(https?:\/\/)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/.*)?$/;
+      if (isEmpty(website)) {
+        setError(website, "Website is required");
+        return false;
+      } else if (!urlRegex.test(websiteValue)) {
+        setError(
+          website,
+          "Please enter a valid website starting with http:// or https://"
+        );
+        return false;
+      } else {
+        setSuccess(website, "Website is valid");
+        return true;
+      }
+    }
+
+    function isEmpty(input) {
+      return input.value.trim() === "";
+    }
+
+    function setError(element, message) {
+      const formGroup = element.closest(".form-group");
+      formGroup.classList.remove("success");
+      formGroup.classList.add("error");
+      formGroup.querySelector(".message").textContent = message;
+    }
+
+    function setSuccess(element, message) {
+      const formGroup = element.closest(".form-group");
+      formGroup.classList.remove("error");
+      formGroup.classList.add("success");
+      formGroup.querySelector(".message").textContent = message;
+    }
+
+    function clearValidationStyles() {
+      document.querySelectorAll(".form-group").forEach((group) => {
+        group.classList.remove("error", "success");
+        group.querySelector(".message").textContent = "";
+      });
+    }
+
+    function sendUserData(formData) {
+      const successDialog = document.getElementById("successDialog");
+      fetch("https://borjomi.loremipsum.ge/api/send-message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Server responded with status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (
+            data.status === 1 &&
+            data.desc === "Message has been sent successfully"
+          ) {
+            successDialog.showModal();
+            form.reset();
+            clearValidationStyles();
+          }
+        })
+        .catch((error) => {
+          console.error("Error sending data:", error);
+          alert(
+            "An error occurred while sending your message. Please try again later."
+          );
+        });
+    }
   }
 
   function initSuccessDialog() {
@@ -375,161 +539,26 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   }
+
+  function initHireMeDialog() {
+    const hireMeButton = document.querySelector(".hire-me-btn");
+    const dialog = document.getElementById("contact-dialog");
+    const closeButton = dialog.querySelector(".close-btn");
+
+    if (hireMeButton) {
+      hireMeButton.addEventListener("click", () => {
+        dialog.showModal();
+      });
+    }
+    if (closeButton) {
+      closeButton.addEventListener("click", () => {
+        dialog.close();
+      });
+    }
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) {
+        dialog.close();
+      }
+    });
+  }
 });
-
-function createTestimonialSlider(data, elements) {
-  const { textEl, photoEl, professionEl, nameEl, navEl } = elements;
-  let navigationButtons = [];
-  navEl.innerHTML = "";
-  data.forEach((item, index) => {
-    const button = document.createElement("button");
-    button.className = "nav-btn";
-    button.dataset.index = index;
-    navEl.appendChild(button);
-  });
-  navigationButtons = navEl.querySelectorAll(".nav-btn");
-  const displayTestimonial = (index) => {
-    const testimonial = data[index];
-    textEl.textContent = testimonial.text;
-    photoEl.src = testimonial.photo;
-    professionEl.textContent = testimonial.profession;
-    nameEl.textContent = testimonial.name;
-    navigationButtons.forEach((button, buttonIndex) => {
-      button.classList.toggle("active", buttonIndex == index);
-    });
-  };
-  navEl.addEventListener("click", (event) => {
-    const clickedButton = event.target.closest(".nav-btn");
-    if (!clickedButton) return;
-    displayTestimonial(Number(clickedButton.dataset.index));
-  });
-  displayTestimonial(0);
-}
-
-const form = document.getElementById("contact-form");
-const username = document.getElementById("name");
-const email = document.getElementById("email");
-const website = document.getElementById("website");
-const message = document.getElementById("message");
-
-function validateEmail() {
-  const emailValue = email.value.trim();
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (isEmpty(email)) {
-    setError(email, "Email is required");
-    return false;
-  } else if (!emailRegex.test(emailValue)) {
-    setError(email, "Please enter a valid email address");
-    return false;
-  } else {
-    setSuccess(email, "Email is valid");
-    return true;
-  }
-}
-
-function validateName() {
-  const nameValue = username.value.trim();
-  if (isEmpty(username)) {
-    setError(username, "Name is required");
-    return false;
-  } else if (nameValue.length < 3) {
-    setError(username, "Name must be at least 3 characters long");
-    return false;
-  } else {
-    setSuccess(username, "Name is valid");
-    return true;
-  }
-}
-
-function validateMessage() {
-  const messageValue = message.value.trim();
-  const minLength = 10;
-  const maxLength = 300;
-  if (isEmpty(message)) {
-    setError(message, "Message is required");
-    return false;
-  } else if (messageValue.length < minLength) {
-    setError(message, `Message must be at least ${minLength} characters long.`);
-    return false;
-  } else if (messageValue.length > maxLength) {
-    setError(message, `Message cannot exceed ${maxLength} characters.`);
-    return false;
-  } else {
-    setSuccess(message, "Message is valid");
-    return true;
-  }
-}
-
-function validateWebsite() {
-  const websiteValue = website.value.trim();
-  const urlRegex = /^(https?:\/\/)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/.*)?$/;
-  if (isEmpty(website)) {
-    setError(website, "Website is required");
-    return false;
-  } else if (!urlRegex.test(websiteValue)) {
-    setError(
-      website,
-      "Please enter a valid website starting with http:// or https://"
-    );
-    return false;
-  } else {
-    setSuccess(website, "Website is valid");
-    return true;
-  }
-}
-
-function isEmpty(input) {
-  return input.value.trim() === "";
-}
-
-function setError(element, message) {
-  const formGroup = element.closest(".form-group");
-  formGroup.classList.remove("success");
-  formGroup.classList.add("error");
-  formGroup.querySelector(".message").textContent = message;
-}
-
-function setSuccess(element, message) {
-  const formGroup = element.closest(".form-group");
-  formGroup.classList.remove("error");
-  formGroup.classList.add("success");
-  formGroup.querySelector(".message").textContent = message;
-}
-
-function clearValidationStyles() {
-  document.querySelectorAll(".form-group").forEach((group) => {
-    group.classList.remove("error", "success");
-    group.querySelector(".message").textContent = "";
-  });
-}
-
-function sendUserData(formData) {
-  const successDialog = document.getElementById("successDialog");
-  fetch("https://borjomi.loremipsum.ge/api/send-message", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Server responded with status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      if (
-        data.status === 1 &&
-        data.desc === "Message has been sent successfully"
-      ) {
-        successDialog.showModal();
-        form.reset();
-        clearValidationStyles();
-      }
-    })
-    .catch((error) => {
-      console.error("Error sending data:", error);
-      alert(
-        "An error occurred while sending your message. Please try again later."
-      );
-    });
-}
