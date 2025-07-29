@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initContactForm();
   initSuccessDialog();
   initHireMeDialog();
+  initScrollAnimations();
 
   function initHeroSlider() {
     const slides = document.querySelectorAll(".slide-item");
@@ -68,19 +69,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function initSkillsObserver() {
     const skillsSection = document.querySelector("#skills-section");
-    const progressBars = document.querySelectorAll(".progress");
     if (!skillsSection) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, observer) => {
         entries.forEach((entry) => {
-          progressBars.forEach((bar) => {
-            bar.style.width = entry.isIntersecting ? bar.dataset.width : "0";
-          });
+          if (entry.isIntersecting) {
+            const progressBars = skillsSection.querySelectorAll(".progress");
+            progressBars.forEach((bar) => {
+              bar.style.width = bar.dataset.width;
+            });
+            observer.unobserve(skillsSection);
+          }
         });
       },
       { threshold: 0.1 }
     );
+
     observer.observe(skillsSection);
   }
 
@@ -559,6 +564,27 @@ document.addEventListener("DOMContentLoaded", function () {
       if (event.target === dialog) {
         dialog.close();
       }
+    });
+  }
+
+  function initScrollAnimations() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    const elementsToAnimate = document.querySelectorAll(".animate-on-scroll");
+    elementsToAnimate.forEach((element) => {
+      observer.observe(element);
     });
   }
 });
