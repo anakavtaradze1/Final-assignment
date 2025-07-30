@@ -19,7 +19,7 @@ a {
   padding: 0 10px;
 }
 
-.page-wrapper {
+.overflow-container {
   overflow: hidden;
 }
 .animate-on-scroll {
@@ -64,7 +64,7 @@ a {
   backface-visibility: hidden;
   transition: all 0.8s ease-in-out;
   background-size: cover;
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
 }
 .slide-item-1 {
@@ -403,7 +403,6 @@ a {
   justify-content: center;
   align-items: center;
   gap: 29px;
-  flex-direction: row;
   flex-basis: 320px;
 }
 .icon-wrapper {
@@ -451,10 +450,9 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
   gap: 10px;
-  margin-top: 150px;
-  margin-bottom: 150px;
+  margin-top: 180px;
+  margin-bottom: 160px;
 }
-
 .service-card {
   position: relative;
   height: 360px;
@@ -509,11 +507,11 @@ a {
   height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: all 0.4s ease;
+  transition: all 0.5s ease;
 }
 .service-card:hover p,
 .service-card.is-active p {
-  height: 150px;
+  height: 100px;
   opacity: 1;
   margin-top: 15px;
 }
@@ -818,7 +816,7 @@ a {
 .articles:nth-of-type(even) h4,
 .articles:nth-of-type(even) .articles-image,
 .articles:nth-of-type(even) .read-more {
-  margin-left: 100px;
+  margin-left: 150px;
 }
 
 /* rosa team */
@@ -1131,7 +1129,7 @@ textarea {
     line-height: 30px;
   }
   .slider-content p:last-of-type {
-    line-height: 30px;
+    line-height: 35px;
     margin-top: 10px;
   }
   .slider-section-title .number {
@@ -1149,7 +1147,7 @@ textarea {
     text-align: center;
   }
   .slider-stats p {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.2;
   }
   .slider-social-links i {
@@ -1218,7 +1216,6 @@ textarea {
     display: flex;
     width: 100%;
     height: auto;
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     flex-wrap: nowrap;
     justify-content: start;
     gap: 0;
@@ -1230,11 +1227,10 @@ textarea {
     text-align: center;
     gap: 15px;
     flex: 0 0 100%;
-    box-sizing: border-box;
     padding: 0 20px;
   }
   .slider-arrow {
-    display: flex;
+    display: grid;
     grid-row: 1 / 2;
     z-index: 10;
     width: 44px;
@@ -1243,7 +1239,6 @@ textarea {
     background-color: transparent;
     border: 2px dashed rgba(255, 255, 255, 0.7);
     border-radius: 50%;
-    cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
   }
@@ -1311,7 +1306,6 @@ textarea {
     display: none;
   }
   .service-card {
-    flex: 0 0 70%;
     scroll-snap-align: start;
   }
 
@@ -1505,7 +1499,7 @@ textarea {
     font-size: 35px;
   }
 
-  /* footer */
+  /* roca */
   .footer-main {
     padding-top: 40px;
     padding-bottom: 40px;
@@ -1520,6 +1514,7 @@ textarea {
   .footer-bottom p {
     font-size: 12px;
   }
+
   .services-section .animate-on-scroll.slide-up {
     transform: none;
     transition: none;
@@ -1531,9 +1526,6 @@ textarea {
   .slider-content h1 {
     line-height: 60px;
   }
-  .slider-content p:last-of-type {
-    margin-bottom: 0px;
-  }
   .slider-section-title .number {
     font-size: 120px;
   }
@@ -1541,14 +1533,14 @@ textarea {
     font-size: 35px;
   }
   .slider-stats {
-    bottom: 20px;
-    right: -30px;
+    bottom: 30px;
+    right: 30px;
   }
   .slider-stats p {
     font-size: 20px;
   }
   .slider-stats .progress-line {
-    margin-top: 5px;
+    margin-top: 10px;
     width: 80%;
   }
   .aboutme-section {
@@ -1591,7 +1583,6 @@ textarea {
 @media (min-width: 769px) {
   .services-section.animate-on-scroll {
     opacity: 1;
-    transform: none;
     transform: none;
   }
 }
